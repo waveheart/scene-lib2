@@ -12,7 +12,7 @@
       <v-img-list :result="result"></v-img-list>
     </div>
     <div class="scene_related_wrapper">
-      <v-scene-related></v-scene-related>
+      <v-scene-related :sceneRelated="sceneRelated"></v-scene-related>
     </div>
   </div>
 </template>
@@ -33,6 +33,12 @@
         default: () => {
           return []
         }
+      },
+      sceneRelated: {
+        type: Array,
+        default: () => {
+          return []
+        }
       }
     },
     components: {
@@ -47,16 +53,21 @@
   .result_wrapper
     width: 100%
     display: flex
-    width: 1440px
     min-width: 1280px
+    overflow: hidden
+    box-sizing: border-box
+    padding-left: 4px
+    // height: 500px
     .map_wrapper
       width: 40%
       height: 400px
       overflow: hidden
     .img_list_wrapper
       width: 44%
-      height: 600px
+      height: 450px
       padding-left: 20px
+      box-sizing: border-box
+      overflow: auto
     .scene_related_wrapper
-      width: 16%
+      width: 14%
 </style>

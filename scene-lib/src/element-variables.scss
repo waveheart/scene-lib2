@@ -4,7 +4,8 @@ $--color-primary: #ADD5BA;
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '../node_modules/element-ui/lib/theme-chalk/fonts';
 
-
+/* 改变 input focus 颜色*/
+$--input-focus-border: #ccc !default;
 
 
 @import "../node_modules/element-ui/packages/theme-chalk/src/index";

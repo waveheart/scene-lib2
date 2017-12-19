@@ -6,7 +6,8 @@
 <template>
     <div class="search">
       <v-filter @SelectedItemsChanged="filterSearchResult"></v-filter>
-      <v-search :result="filterResult"></v-search>
+      <div class="split"></div>
+      <v-search :result="filterResult" :sceneRelated="sceneRelated"></v-search>
     </div>
 </template>
 
@@ -20,6 +21,7 @@ export default {
       checked: true,
       input: '',
       data: new Set(),
+      sceneRelated: [],
       // city: '',
       searchResult: [],
       filterResult: [],
@@ -37,6 +39,8 @@ export default {
   created () {
     this.$axios.get('/api/data').then(res => {
       this.data = res.data.data
+      this.sceneRelated = res.data.sceneRelated
+      console.log(this.sceneRelated)
       console.log(this.data)
     })
   },
@@ -69,7 +73,7 @@ export default {
       }
       this.filterTerms = filterTerms
       this.searchResult.forEach((item) => {
-        if (this.isSelectedSceneType(item.environment, filterTerms.scene_type) && this.isSelectedOptionOfScene(item.sceneStyles, filterTerms.scene_styles) && this.isSelectedOptionOfScene(item.manageMode, filterTerms.manage_modes) && this.isSelectedOptionOfScene(item.placeTypes, filterTerms.place_types)) {
+        if (this.isSelectedOptionOfScene(item.environment, filterTerms.scene_type) && this.isSelectedOptionOfScene(item.sceneStyles, filterTerms.scene_styles) && this.isSelectedOptionOfScene(item.manageMode, filterTerms.manage_modes) && this.isSelectedOptionOfScene(item.placeTypes, filterTerms.place_types)) {
           this.filterResult.push(item)
         }
       })
@@ -129,4 +133,8 @@ export default {
 </script>
 
 <style lang="sass" type="text/css">
+  .split
+    width: 100%
+    height: 4px
+    background-color: #768C7F
 </style>

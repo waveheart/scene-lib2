@@ -28,4 +28,7 @@ export default {
 </script>
 
 <style lang="sass" type="text/css">
+  .app
+    width: 100%
+    min-width: 1280px
 </style>

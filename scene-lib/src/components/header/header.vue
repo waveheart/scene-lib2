@@ -1,8 +1,10 @@
 <template>
   <div class="header_wrapper">
-    <div class="logo">
-      <img src="./logo.png" height="36" width="128" alt="logo">
-      <span class="text">场景库</span>
+    <div class="logo" @click="toIndex">
+      <a href="#">
+        <img src="./logo.png" height="36" width="128" alt="logo">
+        <span class="text">场景库</span>
+      </a>
     </div>
     <div class="address">
       <v-city @changeCity="changeCity" ref="city"></v-city>
@@ -35,6 +37,9 @@
       },
       changeCity (city) {
         this.$emit('changeCity', city)
+      },
+      toIndex () {
+        this.$router.push('/')
       }
     },
     watch: {
@@ -62,6 +67,7 @@
   min-width: 1280px
   vertical-align:middle
   background-color: #FFF
+  box-shadow: 0 2px 5px 0 rgba(155,155,155,0.50)
   .logo
     display: inline-block
     margin-left: 30px

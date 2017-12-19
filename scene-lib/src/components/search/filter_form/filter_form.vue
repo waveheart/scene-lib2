@@ -5,15 +5,8 @@
 
 <template>
   <div class="filter_form_wrapper">
-    <div class="scene_type">
-      <span>场景类型</span>
-      <el-radio-group v-model="scene_type" @change="radiochange">
-        <el-radio label="室内">室内</el-radio>
-        <el-radio label="室外">室外</el-radio>
-      </el-radio-group>
-    </div>
-    <div v-for="item in filterTypes">
-      <v-checkboxes :title="item.name" :type="item.type" :selectItems="item.data" @SelectedItemsChanged="SelectedItemsChanged"></v-checkboxes>
+    <div v-for="item in filterTypes" class="filter_item">
+      <v-checkboxes :title="item.name" :type="item.type" :class="item.type" :selectItems="item.data" @SelectedItemsChanged="SelectedItemsChanged"></v-checkboxes>
     </div>
   </div>
 </template>
@@ -26,12 +19,28 @@
       return {
         scene_type: 0,
         filterTerms: {
-          scene_type: '',
+          scene_type: new Set(),
           scene_styles: new Set(),
           manage_modes: new Set(),
           place_types: new Set()
         },
         filterTypes: [
+          {
+            name: '场景类型',
+            type: 'scene_type',
+            data: [
+              {name: '室内', value: false},
+              {name: '室外', value: false}
+            ]
+          },
+          {
+            name: '经营方式',
+            type: 'manage_modes',
+            data: [
+              {name: '市政经营', value: false},
+              {name: '商业运行', value: false}
+            ]
+          },
           {
             name: '适宜风格',
             type: 'scene_styles',
@@ -48,14 +57,6 @@
               {name: '动作', value: false},
               {name: '喜剧', value: false},
               {name: '警匪', value: false}
-            ]
-          },
-          {
-            name: '经营方式',
-            type: 'manage_modes',
-            data: [
-              {name: '市政经营', value: false},
-              {name: '商业运行', value: false}
             ]
           },
           {
@@ -96,5 +97,22 @@
 </script>
 
 <style lang="sass" scoped="" type="text/css">
-
+  .filter_form_wrapper
+    width: 100%
+    height: 130px
+    display: flex
+    position: relative
+    // flex-direction: column
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+    padding: 10px 20px
+    box-sizing: border-box
+    .filter_item
+      box-sizing: border-box
+      padding-left: 20px
+    .filter_item:nth-child(2n+1)
+      flex: 1 1 40%
+    .filter_item:nth-child(2n)
+      flex: 1 1 60%
 </style>
