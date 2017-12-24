@@ -128,7 +128,7 @@ function getAreaDetail (areaID) {
         'name': '@cword(3, 5)',
         'directors|1-3': ['@cname'],
         'submiter': '@cname',
-        'img': Random.image('20x20', Random.color())
+        'img': Random.image('40x40', Random.color())
       }
     ]
   })

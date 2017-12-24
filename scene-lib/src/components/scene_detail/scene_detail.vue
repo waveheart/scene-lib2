@@ -5,22 +5,26 @@
 
 <template>
   <div class="scene_detail_wrapper">
-    <div class="title">
-      <span class="main_title">{{data.name}}</span>
-      <span class="sub_title">{{data.belongTo}}</span>
-      <span class="favorite">收藏数{{data.collectNum}}</span>
-      <span class="photo" @click="showDialog">我拍过</span>
+    <div class="scene_detail_title">
+      <div class="scene_title">
+        <span class="main_title">{{data.name}}</span>
+        <span class="sub_title">{{data.belongTo}}</span>
+      </div>
+      <div class="scene_title_more">
+        <span class="favorite">收藏数{{data.collectNum}}</span>
+        <span class="photo" @click="showDialog">我拍过</span>
+      </div>
     </div>
     <div class="scene_style">
-      <span>古装</span>
-      <span>科幻</span>
-      <span>市政管辖</span>
-      <span>风景区</span>
+      <span v-for="(style,index) in data.sceneStyles"><b v-if="index!==0"> • </b>{{style}}</span>
     </div>
     <div class="swiper_wrapper">
-      <div @click="SetTime(0)">全部</div>
-      <div @click="SetTime(1)">白天</div>
-      <div @click="SetTime(2)">晚上</div>
+      <div>
+        <span>{{timeDisplay}}</span>
+        <span @click="SetTime(0)">全部</span>
+        <span @click="SetTime(1)">白天</span>
+        <span @click="SetTime(2)">晚上</span>
+      </div>
       <el-slider v-model="time" range show-stops :max="1440" :step="30" :show-tooltip="false" @change="timeLineChange">
       </el-slider>
       <swiper :options="swiperOptionTop" class="gallery_top" ref="swiperTop">
@@ -35,17 +39,22 @@
     <div class="img_detail">
       <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
         <swiper-slide v-for="(image,index) in selectPics" :key="index">
-          <img :src="image.src" alt="图片" width="200" height="200">
+          <img :src="image.src" alt="图片" width="696" height="400">
         </swiper-slide>
       </swiper>
-      <img-detail :currentPic="currentPic"></img-detail>
+      <img-detail :currentPic="currentPic" class="img_info"></img-detail>
     </div>
-    <div class="tools">
-      <p>可用工具</p>
-      <span v-for="tool in data.tools">{{tool}}--</span>
+    <div class="tool_list">
+      <p class="title">可用道具</p>
+      <div class="tools">
+        <span v-for="tool in data.tools">{{tool}}--</span>
+      </div>
     </div>
-    <div class="filmed_team">
-      <v-film v-for="(film,index) in data.filmedTeams" :film="film" :key="index"></v-film>
+    <div class="filmed_teams_wrapper">
+      <p class="title">已拍摄剧组</p>
+      <div class="filmed_teams">
+        <v-film v-for="(film,index) in data.filmedTeams" :film="film" :key="index" class="team"></v-film>
+      </div>
     </div>
     <v-dialog ref="dialog"></v-dialog>
   </div>
@@ -88,6 +97,9 @@
       }
     },
     computed: {
+      timeDisplay () {
+        return this.formatetime(this.time[0]) + '~' + this.formatetime(this.time[1])
+      },
       selectPics () {
         let pics = []
         if (this.data.images === undefined) {
@@ -122,6 +134,9 @@
       })
     },
     methods: {
+      formatetime (minuteNum) {
+        return (~~(minuteNum / 60) + '').padStart(2, 0) + ':' + (~~(minuteNum % 60) + '').padStart(2, 0)
+      },
       showDialog () {
         this.$refs.dialog.dialogFormVisible = true
       },
@@ -143,29 +158,86 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .swiper-container {
-    background-color: #000;
-  }
-  .swiper-slide {
-    background-size: cover;
-    background-position: center;
-  }
-  .gallery-top {
-    height: 80%!important;
-    width: 100%;
-  }
-  .gallery-thumbs {
-    height: 20%!important;
-    box-sizing: border-box;
-    padding: 10px 0;
-  }
-  .gallery_top .swiper-slide {
-    height: 100%;
-    opacity: 0.4;
-  }
-  .gallery_top .swiper-slide-active {
-  opacity: 1;
-  }
+<style lang="sass" type="text/css">
+  @import '~common/styles/variable.sass'
+
+  .scene_detail_wrapper
+    display: flex
+    flex-direction: column
+    width: 1160px
+    margin: 0 auto
+    padding-bottom: 100px
+    background-color: rgba(204,204,204,0.10)
+    .title
+      font-size: $font-size-large
+      color: $color-text-dd
+      font-weight: bold
+    .scene_detail_title
+      display: flex
+      height: 46px
+      margin-top: 34px
+      justify-content: space-between
+      align-items: center
+      .main_title
+        font-size: 32px
+        color: $color-text-enhance
+      .sub_title
+        color: $color-text-enhance
+        margin-left: 8px
+      .scene_title_more
+        span
+          margin-left: 20px
+    .scene_style
+      font-size: $font-size-medium-x
+    .swiper_wrapper
+      margin-top: 30px
+    // .swiper_top
+    //   height: 102px
+    .tool_list
+      margin-top: 55px
+      .tools
+        margin-top: 18px
+        font-size: $font-size-medium-x
+    .filmed_teams_wrapper
+      margin-top: 36px
+      .filmed_teams
+        display: flex
+        flex-wrap: wrap
+        margin-right: -50px
+      .team
+        width: 355px
+        margin-right: 48px
+        margin-top: 18px
+    .img_info
+      position: absolute
+      margin-top: -410px
+      z-index: 2
+      background-color: #000
+      width: 420px
+      height: 400px
+      margin-left: 700px
+
+
+    .swiper-container
+      background-color: #000
+      height: 102px
+      padding-top: 10px
+    .swiper-slide
+      background-size: cover
+      background-position: center
+    .gallery-top
+      // height: 80%!important
+      width: 100%
+    .gallery-thumbs
+      // height: 20%!important
+      height: 420px
+      box-sizing: border-box
+      padding: 10px 0
+    .gallery_top .swiper-slide
+      height: 100%
+      opacity: 0.4
+    .gallery_top .swiper-slide-active
+      opacity: 1
+
 
 </style>

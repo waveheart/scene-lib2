@@ -84,6 +84,23 @@
   }
 </script>
 
-<style lang="sass" scoped="" type="text/css">
-
+<style lang="sass" type="text/css">
+  .el-dialog
+    width: 620px
+    padding: 32px 110px 60px
+    .el-dialog__header
+      text-align: center
+      padding-bottom: 0
+    .el-dialog__title
+      color: #768C7F
+      font-size: 32px
+    .el-form-item
+      margin-bottom: 10px
+    .el-date-editor--daterange.el-input__inner
+      width: 100%
+    .el-button--primary
+      width: 100%
+      margin-top: 20px
+      background-color: #E2614E
+      border: none
 </style>

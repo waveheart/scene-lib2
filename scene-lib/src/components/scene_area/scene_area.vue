@@ -116,6 +116,8 @@
     flex-direction: column
     width: 1160px
     margin: 0 auto
+    padding-bottom: 100px
+    background-color: rgba(204,204,204,0.10)
     // align-items: center
     .title
       font-size: $font-size-large
@@ -194,6 +196,7 @@
         margin-top: 20px
         display: flex
         flex-wrap: wrap
+        margin-right: -40px
         .hotel
           margin-right: 40px
     .restaurant_recommend

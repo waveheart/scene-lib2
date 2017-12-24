@@ -4,7 +4,7 @@
  -->
 
 <template>
-  <div class="img_detail">
+  <div class="img_info_detail">
     <div class="item_info">
       <p class="info">制造商</p>
       <p class="value">{{currentPic.productor}}</p>
@@ -67,5 +67,13 @@
 </script>
 
 <style lang="sass" scoped="" type="text/css">
+  @import '~common/styles/variable.sass'
 
+  .img_info_detail
+    padding: 0  20px
+    display: flex
+    flex-direction: column
+    overflow: hidden
+    p
+      line-height: 20px
 </style>
