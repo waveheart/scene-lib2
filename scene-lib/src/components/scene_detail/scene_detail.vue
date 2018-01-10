@@ -213,9 +213,9 @@
       margin-top: -410px
       z-index: 2
       background-color: #000
-      width: 420px
+      width: 400px
       height: 400px
-      margin-left: 700px
+      margin-left: 720px
 
 
     .swiper-container
@@ -232,7 +232,7 @@
       // height: 20%!important
       height: 420px
       box-sizing: border-box
-      padding: 10px 0
+      padding: 10px 10px
     .gallery_top .swiper-slide
       height: 100%
       opacity: 0.4
